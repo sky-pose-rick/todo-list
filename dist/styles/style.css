@@ -1,0 +1,49 @@
+h1 {
+    font-size: 70px;
+    text-align: center;
+    margin: 10px;
+}
+
+.create-button{
+    font-size: 20px;
+    text-align: center;
+    border: solid 3px black;
+}
+
+#project-list {
+    display: grid;
+    grid: auto-flow / 1fr 1fr 1fr;
+}
+
+.project {
+    display:grid;
+    grid-template-areas: "a a a"
+        "b b ."
+        "c c d";
+    border: solid 3px black;
+    border-radius: 25px;
+    margin: 10px;
+    padding: 10px;
+}
+
+.project .project-title{
+    grid-area: a;
+    text-align: center;
+}
+
+.project .project-counter{
+    grid-area: b;
+    text-align: center;
+}
+
+.project .project-view{
+    grid-area: c;
+    text-align: center;
+    background-color: green;
+}
+
+.project .project-delete{
+    grid-area: d;
+    text-align: center;
+    background-color: pink;
+}
