@@ -6,7 +6,7 @@ let projectList;
 const storageName = 'Odin-Todo';
 
 //load the project list from local storage
-const fetchProjectList = () =>{
+const loadProjectList = () =>{
     const localObj = JSON.parse(localStorage.getItem(storageName));
 
     console.log(localObj);
@@ -37,4 +37,9 @@ const resetStorage = () =>{
     //update UI or let caller do it
 }
 
-export {fetchProjectList, storeProjectList, resetStorage};
+//let the project have access to project list
+const getProjectList = () =>{
+    return projectList;
+}
+
+export {loadProjectList, storeProjectList, resetStorage, getProjectList};
