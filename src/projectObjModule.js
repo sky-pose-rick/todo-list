@@ -7,4 +7,9 @@ const projectFactory = () =>{
     return {name, taskList};
 }
 
+const projectFromJSON = (obj) =>{
+    const p = projectFactory();
+    return p;
+}
+
 export {projectFactory};

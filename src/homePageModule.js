@@ -48,6 +48,7 @@ const loadHome = content =>{
     creater.innerText = 'Create New Project';
     creater.classList.add('create-button');
     content.appendChild(creater);
+    //todo: add event listener to create new project
 
     //ul
     const uList = document.createElement('ul');
@@ -57,38 +58,43 @@ const loadHome = content =>{
     //li elements
     const projectList = getProjectList();
     console.log('project list for homepage: ' + projectList);
-    for (let p in projectList){
+    projectList.forEach(p => {
+      console.log(p);
       //li element
       const item = document.createElement('li');
       item.classList.add('project');
 
       //title
-      const pTitle = document.createElement('div').classList.add('project-title');
-      pTitle.innerText=p.name;
+      const pTitle = document.createElement('div');
+      pTitle.classList.add('project-title');
+      pTitle.innerText = p.name;
       item.append(pTitle);
       //todo: add a way to change the title (within the project, not here)
 
       //task count
-      const pTasks = document.createElement('div').classList.add('project-counter');
+      const pTasks = document.createElement('div')
+      pTasks.classList.add('project-counter');
       pTasks.innerText = `${p.taskList.length} todos`;
       item.append(pTasks);
 
       //view
-      const pView = document.createElement('button').classList.add('project-view');
+      const pView = document.createElement('button')
+      pView.classList.add('project-view');
       pView.innerText = 'View';
       item.append(pView);
       //todo: add an event listener to the button to load the project
 
       //todo: determine if this button should exist
       //delete 
-      const pDelete = document.createElement('button').classList.add('project-view');
+      const pDelete = document.createElement('button')
+      pDelete.classList.add('project-delete');
       pDelete.innerText = 'Delete';
       item.append(pDelete);
       //todo: add event listener to delete the project
 
       //append to list
       uList.appendChild(item);
-    }
+    });
 
     //append list to content
     content.appendChild(uList);

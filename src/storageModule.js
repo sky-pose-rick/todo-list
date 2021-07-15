@@ -14,6 +14,7 @@ const loadProjectList = () =>{
     if(!localObj || localObj.length === 0){
         projectList = [projectFactory()];
         storeProjectList();
+        console.log(projectList);
     }
     //load an existing lis
     else{
@@ -34,7 +35,7 @@ const storeProjectList = () =>{
 const resetStorage = () =>{
     projectList = [];
     localStorage.setItem(storageName, JSON.stringify(null));
-    //update UI or let caller do it
+    //todo: update UI or let caller do it
 }
 
 //let the project have access to project list
