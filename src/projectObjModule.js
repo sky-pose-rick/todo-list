@@ -1,9 +1,9 @@
+import { taskFactory } from "./taskObjModule";
+
 //constructor and helper functions for project objects
-
 const projectFactory = () =>{
-    let obj = {};
-
-    return obj;
+    const taskList = [taskFactory()];
+    return {taskList};
 }
 
 export {projectFactory};
