@@ -1,4 +1,5 @@
 import {loadProjectList, storeProjectList, resetStorage, getProjectList, createNewProject} from "./storageModule";
+import { loadProject } from "./projectPageModule";
 
 //module for displaying projects on a main page
 
@@ -83,7 +84,9 @@ const loadHome = content =>{
       pView.classList.add('project-view');
       pView.innerText = 'View';
       item.append(pView);
-      //todo: add an event listener to the button to load the project
+      pView.addEventListener('click', ()=>{
+        loadProject(content, p);
+      });
 
       //todo: determine if this button should exist
       //delete 

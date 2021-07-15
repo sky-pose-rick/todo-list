@@ -4,12 +4,12 @@ import { taskFactory } from "./taskObjModule";
 const projectFactory = () =>{
     const taskList = [taskFactory()];
     let name = "New Project";
-    return {name, taskList};
-}
 
-const projectFromJSON = (obj) =>{
-    const p = projectFactory();
-    return p;
+    const addTask = ()=>{
+        taskList.push(taskFactory());
+    }
+
+    return {name, taskList, addTask};
 }
 
 export {projectFactory};
