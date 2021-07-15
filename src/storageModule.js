@@ -8,27 +8,23 @@ const storageName = 'Odin-Todo';
 //load the project list from local storage
 const loadProjectList = () =>{
     const localObj = JSON.parse(localStorage.getItem(storageName));
-
     console.log(localObj);
-    //if no existing list is found, create a default one
-    if(!localObj || localObj.length === 0){
-        projectList = [projectFactory()];
-        storeProjectList();
-        console.log(projectList);
+
+    //try to load from storage
+    projectList = localObj;
+
+    //if no results found, create a default one
+    if(projectList.length === 0){
+        console.log('initialize project list');
+        createNewProject();
     }
-    //load an existing lis
-    else{
-        projectList = [];
-        //convert json object to array
-        for(let prop in localObj){
-            projectList.push(localObj.prop);
-        }
-    }
+
 }
 
 //store the project list in local storage
 const storeProjectList = () =>{
     localStorage.setItem(storageName, JSON.stringify(projectList));
+    console.log(projectList);
 }
 
 //reset the local storage
@@ -43,4 +39,11 @@ const getProjectList = () =>{
     return projectList;
 }
 
-export {loadProjectList, storeProjectList, resetStorage, getProjectList};
+//add a blank project to the list
+const createNewProject = () =>{
+    const p = projectFactory();
+    projectList.push(p);
+    storeProjectList();
+}
+
+export {loadProjectList, storeProjectList, resetStorage, getProjectList, createNewProject};

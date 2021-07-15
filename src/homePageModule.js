@@ -1,6 +1,8 @@
-import {loadProjectList, storeProjectList, resetStorage, getProjectList} from "./storageModule";
+import {loadProjectList, storeProjectList, resetStorage, getProjectList, createNewProject} from "./storageModule";
 
 //module for displaying projects on a main page
+
+//sameple html structure
 const htmlContent=`<h1>TODO Lists</h1>
 <div class="create-button">Create New Project</div>
 <ul id="project-list">
@@ -30,17 +32,13 @@ const htmlContent=`<h1>TODO Lists</h1>
   </li>
 </ul>`;
 
-const header = `<h1>TODO Lists</h1>
-<div class="create-button">Create New Project</div>`;
-
-
 //get the current project list and assemble an html page
 const loadHome = content =>{
     content.innerHTML = '';
 
     //h1
     const h1 = document.createElement('h1');
-    h1.innerText = 'TODOLists';
+    h1.innerText = 'TODO Lists';
     content.appendChild(h1);
 
     //button
@@ -48,7 +46,10 @@ const loadHome = content =>{
     creater.innerText = 'Create New Project';
     creater.classList.add('create-button');
     content.appendChild(creater);
-    //todo: add event listener to create new project
+    creater.addEventListener('click', ()=>{
+      createNewProject();
+      loadHome(content);
+    });
 
     //ul
     const uList = document.createElement('ul');
@@ -57,9 +58,9 @@ const loadHome = content =>{
 
     //li elements
     const projectList = getProjectList();
-    console.log('project list for homepage: ' + projectList);
+    //console.log(projectList);
     projectList.forEach(p => {
-      console.log(p);
+      //console.log(p);
       //li element
       const item = document.createElement('li');
       item.classList.add('project');
@@ -99,6 +100,16 @@ const loadHome = content =>{
     //append list to content
     content.appendChild(uList);
 
+    //a reset button
+    const reseter = document.createElement('button')
+    reseter.classList.add('home-reset');
+    reseter.innerText = 'Reset all';
+    content.append(reseter);
+    reseter.addEventListener('click', ()=>{
+      resetStorage();
+      createNewProject();
+      loadHome(content);
+    })
 }
 
 export {loadHome};

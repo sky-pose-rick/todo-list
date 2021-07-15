@@ -9,7 +9,7 @@ console.log('webpack compiled to main.js');
 
 const content = document.querySelector('#content');
 
-resetStorage(); //todo: remove this reset
+//resetStorage(); //todo: remove this reset
 loadProjectList();
 
 loadHome(content);
