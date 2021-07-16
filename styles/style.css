@@ -47,3 +47,33 @@ h1 {
     text-align: center;
     background-color: pink;
 }
+
+.mini-task {
+	display: flex;
+	width: 60%;
+	justify-content: space-between;
+	margin: 5px auto 5px auto;
+    border: solid 1px black;
+    padding: 5px;
+}
+
+.no-priority {
+    background-color: gray;
+}
+
+.low-priority {
+    background-color: blue;
+}
+
+.med-priority {
+    background-color: yellow;
+}
+
+.high-priority {
+    background-color: red;
+}
+
+#project-info {
+    display: flex;
+    justify-content: space-between;
+}
