@@ -9,7 +9,7 @@ const projectFactory = (name, taskList) =>{
             desc: 'A blank task', 
             notes: 'blank notes', 
             dueDate: 'set this somehow', 
-            priority: 0, 
+            priority: 'none', 
             checkList: null, 
             resolved: false
         });

@@ -33,11 +33,15 @@ const htmlContent=`<div id="header">
 const loadProject = (content, project) =>{
   content.innerHTML = '';
 
+  //top element container
+  const topContainer = document.createElement('div');
+  topContainer.setAttribute('id', 'project-info');
+
   //back button
   const backer = document.createElement('button');
   backer.innerText = 'Back to Home';
   backer.classList.add('back-button');
-  content.appendChild(backer);
+  topContainer.appendChild(backer);
   backer.addEventListener('click', () =>{
     loadHome(content);
     storeProjectList();
@@ -46,14 +50,16 @@ const loadProject = (content, project) =>{
   //h1
   const h1 = document.createElement('h1');
   h1.innerText = project.name;
-  content.appendChild(h1);
+  topContainer.appendChild(h1);
 
   //rename button
   const projectNamer = document.createElement('button');
   projectNamer.innerText = 'Rename Project';
   projectNamer.classList.add('project-rename');
-  content.appendChild(projectNamer);
+  topContainer.appendChild(projectNamer);
   //todo: add event listener to rename project
+
+  content.appendChild(topContainer);
 
   //create button
   const creater = document.createElement('button');
@@ -61,7 +67,6 @@ const loadProject = (content, project) =>{
   creater.classList.add('create-button');
   content.appendChild(creater);
   creater.addEventListener('click', ()=>{
-    console.log(project.taskList);
     project.addTask();
     storeProjectList();
     loadProject(content, project);
@@ -77,31 +82,82 @@ const loadProject = (content, project) =>{
   //console.log(projectList);
   taskList.forEach(t => {
     //li element
-    const item = createMiniTaskPane(t);
+    const outerItem = document.createElement('li');
+    outerItem.appendChild(createMiniTaskPane(t, outerItem));
 
     //append to list
-    uList.appendChild(item);
+    uList.appendChild(outerItem);
   });
 
   //append list to content
   content.appendChild(uList);
 }
 
-const createMiniTaskPane = (t)=>{
-  const item = document.createElement('li');
-  item.classList.add('mini-task');
+const createMiniTaskPane = (task, elem)=>{
+  const innerItem = document.createElement('div');
+  innerItem.classList.add('mini-task');
 
   //title
-  const pTitle = document.createElement('div');
-  pTitle.classList.add('mini-task-title');
-  pTitle.innerText = t.title;
-  item.append(pTitle);
+  const tTitle = document.createElement('div');
+  tTitle.classList.add('mini-task-title');
+  tTitle.innerText = task.title;
+  innerItem.append(tTitle);
 
-  return item;
+  //due date
+  const tDate = document.createElement('div');
+  tDate.classList.add('mini-task-date');
+  tDate.innerText = task.dueDate;
+  innerItem.append(tDate);
+
+  //expand
+  const expander = document.createElement('button');
+  expander.classList.add('mini-task-expand');
+  expander.innerText = '>';
+  innerItem.append(expander);
+  expander.addEventListener('click', ()=>{
+    elem.innerHTML = '';
+    elem.appendChild(createFullTaskPane(task, elem));
+  });
+
+  //set priority color
+  innerItem.classList.add(priorityColor(task.priority));
+
+  return innerItem;
 }
 
-const createFullTaskPane = (t)=>{
-  return null;
+const createFullTaskPane = (task, elem)=>{
+  const innerItem = document.createElement('div');
+  innerItem.classList.add('full-task');
+
+  //title
+  const tTitle = document.createElement('div');
+  tTitle.classList.add('full-task-title');
+  tTitle.innerText = task.title;
+  innerItem.append(tTitle);
+
+  //shrink
+  const shrinker = document.createElement('button');
+  shrinker.classList.add('mini-task-expand');
+  shrinker.innerText = '^';
+  innerItem.append(shrinker);
+  shrinker.addEventListener('click', ()=>{
+    elem.innerHTML = '';
+    elem.appendChild(createMiniTaskPane(task, elem));
+  });
+  return innerItem;
+}
+
+const priorityColor = (priority)=>{
+  switch(priority){
+    case 'high': 
+      return 'high-priority';
+    case 'medium':
+      return 'medium-priority';
+    case 'low':
+      return 'low-priority';
+    default:
+      return 'no-priority';
+  }
 }
 
 export {loadProject};
