@@ -60,9 +60,10 @@ const loadProject = (content, project) =>{
   creater.innerText = 'Create New Task';
   creater.classList.add('create-button');
   content.appendChild(creater);
-  
   creater.addEventListener('click', ()=>{
+    console.log(project.taskList);
     project.addTask();
+    storeProjectList();
     loadProject(content, project);
   });
 
@@ -75,17 +76,8 @@ const loadProject = (content, project) =>{
   const taskList = project.taskList;
   //console.log(projectList);
   taskList.forEach(t => {
-    //console.log(p);
     //li element
-    const item = document.createElement('li');
-    item.classList.add('task');
-
-    //title
-    const pTitle = document.createElement('div');
-    pTitle.classList.add('task-title');
-    pTitle.innerText = t.title;
-    item.append(pTitle);
-    //todo: add a way to change the title (probably a prompt)
+    const item = createMiniTaskPane(t);
 
     //append to list
     uList.appendChild(item);
@@ -93,6 +85,23 @@ const loadProject = (content, project) =>{
 
   //append list to content
   content.appendChild(uList);
+}
+
+const createMiniTaskPane = (t)=>{
+  const item = document.createElement('li');
+  item.classList.add('mini-task');
+
+  //title
+  const pTitle = document.createElement('div');
+  pTitle.classList.add('mini-task-title');
+  pTitle.innerText = t.title;
+  item.append(pTitle);
+
+  return item;
+}
+
+const createFullTaskPane = (t)=>{
+  return null;
 }
 
 export {loadProject};

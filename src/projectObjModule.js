@@ -1,12 +1,19 @@
 import { taskFactory, taskFromObject } from "./taskObjModule";
 
 //constructor and helper functions for project objects
-const projectFactory = () =>{
-    const taskList = [taskFactory()];
-    let name = "New Project";
+const projectFactory = (name, taskList) =>{
 
     const addTask = ()=>{
-        taskList.push(taskFactory());
+        const newTask = taskFactory({
+            title: 'New Task', 
+            desc: 'A blank task', 
+            notes: 'blank notes', 
+            dueDate: 'set this somehow', 
+            priority: 0, 
+            checkList: null, 
+            resolved: false
+        });
+        taskList.push(newTask);
     }
 
     return {name, taskList, addTask};
@@ -14,13 +21,8 @@ const projectFactory = () =>{
 
 //convert a generic object to a project
 const projectFromObject = (obj) =>{
-    const project = projectFactory();
-    project.name = obj.name;
-    //remove the default task
-    project.taskList = [];
-    obj.taskList.forEach(element => {
-        project.taskList.push(taskFromObject(element));
-    });
+    let taskList = obj.taskList.map(elem=>taskFromObject(elem));
+    let project = projectFactory(obj.name, taskList);
 
     return project;
 };
