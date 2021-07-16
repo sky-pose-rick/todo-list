@@ -60,7 +60,7 @@ const loadProject = (content, project) =>{
   creater.innerText = 'Create New Task';
   creater.classList.add('create-button');
   content.appendChild(creater);
-  //todo: fix loading objects from localStorage
+  
   creater.addEventListener('click', ()=>{
     project.addTask();
     loadProject(content, project);

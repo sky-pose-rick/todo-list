@@ -1,4 +1,4 @@
-import {projectFactory} from "./projectObjModule";
+import {projectFactory, projectFromObject} from "./projectObjModule";
 
 
 //hold the project list and handle localstorage functions
@@ -7,18 +7,24 @@ const storageName = 'Odin-Todo';
 
 //load the project list from local storage
 const loadProjectList = () =>{
-    const localObj = JSON.parse(localStorage.getItem(storageName));
-    console.log(localObj);
-
     //try to load from storage
-    projectList = localObj;
+    const localObj = JSON.parse(localStorage.getItem(storageName));
+    //console.table(localObj);
 
     //if no results found, create a default one
-    if(projectList.length === 0){
+    //todo: fix case where list is null because not initialized
+    if(!localObj || localObj.length === 0){
         console.log('initialize project list');
         createNewProject();
     }
-
+    //load existing project, convert generic objects to projects/tasks/checklists
+    else{
+        projectList = [];
+        localObj.forEach(element => {
+            projectList.push(projectFromObject(element));
+        });
+    }
+    console.table(projectList);
 }
 
 //store the project list in local storage
