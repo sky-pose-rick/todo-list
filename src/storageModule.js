@@ -52,4 +52,10 @@ const createNewProject = () =>{
     storeProjectList();
 }
 
-export {loadProjectList, storeProjectList, resetStorage, getProjectList, createNewProject};
+//delete a project from the list
+const deleteProject = (p) =>{
+    projectList = projectList.filter((elem)=> elem !== p);
+    storeProjectList();
+}
+
+export {loadProjectList, storeProjectList, resetStorage, getProjectList, createNewProject, deleteProject};

@@ -1,4 +1,4 @@
-import {loadProjectList, storeProjectList, resetStorage, getProjectList, createNewProject} from "./storageModule";
+import { resetStorage, getProjectList, createNewProject, deleteProject} from "./storageModule";
 import { loadProject } from "./projectPageModule";
 
 //module for displaying projects on a main page
@@ -71,7 +71,6 @@ const loadHome = content =>{
       pTitle.classList.add('project-title');
       pTitle.innerText = p.name;
       item.append(pTitle);
-      //todo: add a way to change the title (within the project, not here)
 
       //task count
       const pTasks = document.createElement('div')
@@ -88,13 +87,15 @@ const loadHome = content =>{
         loadProject(content, p);
       });
 
-      //todo: determine if this button should exist
       //delete 
       const pDelete = document.createElement('button')
       pDelete.classList.add('project-delete');
       pDelete.innerText = 'Delete';
       item.append(pDelete);
-      //todo: add event listener to delete the project
+      pDelete.addEventListener('click', ()=>{
+        deleteProject(p);
+        loadHome(content);
+      });
 
       //append to list
       uList.appendChild(item);
