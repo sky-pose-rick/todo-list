@@ -177,8 +177,12 @@ const createFullTaskPane = (task, elem, parentInfo)=>{
     const cBox = document.createElement('input');
     cBox.setAttribute('type', 'checkbox');
     check.append(cBox);
-    //todo: add an event when toggled
-    //update ui and save, but do not refresh whole page
+    if(c[1])
+      cBox.toggleAttribute('checked');
+    check.addEventListener('click', ()=>{
+      c[1] = !c[1];
+      storeProjectList();
+    });
 
     //text for checkbox
     const cText = document.createElement('p');
@@ -196,7 +200,7 @@ const createFullTaskPane = (task, elem, parentInfo)=>{
   edit.classList.add('full-task-edit');
   edit.innerText = 'Edit Task';
   buttonRow.append(edit);
-  //todo: add click event, go to edit page
+
   edit.addEventListener('click', () =>{
     //copy the task
     const taskCopy = task.copy();
@@ -218,11 +222,11 @@ const createFullTaskPane = (task, elem, parentInfo)=>{
   //resolve button
   const resolve = document.createElement('button');
   resolve.classList.add('full-task-resolve');
-  resolve.innerText = 'Resolve Task';
+  resolve.innerText = 'Toggle Resolved';
   buttonRow.append(resolve);
   resolve.addEventListener('click', () =>{
     //cannot refresh because no reference to the project here
-    task.resolved = true;
+    task.resolved = !task.resolved;
     elem.innerHTML = '';
     createFullTaskPane(task, elem, parentInfo);
     storeProjectList();
