@@ -16,6 +16,26 @@ const taskFactory = ({title,
     const checklist = null;
     const resolved = false;*/
 
+    const copy = () =>{
+
+        const cCopy = checkList.map(elem, ()=>
+        {
+            return [elem[0], elem[1]];
+        })
+
+        const newTask = taskFactory({
+            title: title,
+            desc: desc,
+            notes: notes,
+            dueDate: 'bad for now',
+            priority: priority,
+            checkList: cCopy,
+            resolved: resolved,
+        });
+
+        return newTask;
+    }
+
     return {title, desc, notes, dueDate, priority, checkList, resolved};
 }
 

@@ -10,13 +10,24 @@ const projectFactory = (name, taskList) =>{
             notes: 'blank notes', 
             dueDate: 'set this somehow', 
             priority: 'none', 
-            checkList: null, 
+            checkList: [['sample checkbox', true]], 
             resolved: false
         });
         taskList.push(newTask);
     }
 
-    return {name, taskList, addTask};
+    //delete a project from the list
+    const deleteTask = (t) =>{
+        for(let i = 0; i < taskList.length; i++)
+        {
+            if(taskList[i] === t){
+                taskList.splice(i, 1);
+                break;
+            }
+        }
+    }
+
+    return {name, taskList, addTask, deleteTask};
 }
 
 //convert a generic object to a project
