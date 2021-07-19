@@ -3,36 +3,6 @@ import { loadProject } from "./projectPageModule";
 
 //module for displaying projects on a main page
 
-//sameple html structure
-const htmlContent=`<h1>TODO Lists</h1>
-<div class="create-button">Create New Project</div>
-<ul id="project-list">
-  <li class="project">
-    <div class ="project-title">Project 1</div>
-    <div class ="project-counter">22 todos</div>
-    <div class ="project-view">View</div>
-    <div class ="project-delete">Delete</div>
-  </li>
-  <li class="project">
-    <div class ="project-title">Project 1</div>
-    <div class ="project-counter">22 todos</div>
-    <div class ="project-view">View</div>
-    <div class ="project-delete">Delete</div>
-  </li>
-  <li class="project">
-    <div class ="project-title">Project 1</div>
-    <div class ="project-counter">22 todos</div>
-    <div class ="project-view">View</div>
-    <div class ="project-delete">Delete</div>
-  </li>
-  <li class="project">
-    <div class ="project-title">Project 1</div>
-    <div class ="project-counter">22 todos</div>
-    <div class ="project-view">View</div>
-    <div class ="project-delete">Delete</div>
-  </li>
-</ul>`;
-
 //get the current project list and assemble an html page
 const loadHome = content =>{
     content.innerHTML = '';
