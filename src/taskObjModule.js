@@ -18,7 +18,7 @@ const taskFactory = ({title,
 
     const copy = () =>{
 
-        const cCopy = checkList.map(elem, ()=>
+        const cCopy = checkList.map((elem)=>
         {
             return [elem[0], elem[1]];
         })
@@ -36,7 +36,7 @@ const taskFactory = ({title,
         return newTask;
     }
 
-    return {title, desc, notes, dueDate, priority, checkList, resolved};
+    return {title, desc, notes, dueDate, priority, checkList, resolved, copy};
 }
 
 //convert a generic object to a task

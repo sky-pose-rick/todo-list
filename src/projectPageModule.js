@@ -1,5 +1,6 @@
 import { loadHome } from "./homePageModule";
 import { storeProjectList } from "./storageModule";
+import { loadTask } from "./taskPageModule";
 
 //module for displaying tasks within a project
 
@@ -45,7 +46,6 @@ const loadProject = (content, project) =>{
   topContainer.appendChild(backer);
   backer.addEventListener('click', () =>{
     loadHome(content);
-    storeProjectList();
   })
 
   //h1
@@ -79,6 +79,7 @@ const loadProject = (content, project) =>{
 
   //li elements
   const taskList = project.taskList;
+  const parentInfo = {content, project};
   //console.log(projectList);
   taskList.forEach(t => {
     //li element
@@ -86,14 +87,14 @@ const loadProject = (content, project) =>{
     uList.appendChild(row);
 
     //mini-pane
-    createMiniTaskPane(t, row, project);
+    createMiniTaskPane(t, row, parentInfo);
   });
 
   //append list to content
   content.appendChild(uList);
 }
 
-const createMiniTaskPane = (task, elem, project)=>{
+const createMiniTaskPane = (task, elem, parentInfo)=>{
   const innerItem = miniTaskContent(task, elem);
 
   //expand
@@ -103,13 +104,13 @@ const createMiniTaskPane = (task, elem, project)=>{
   innerItem.append(expander);
   expander.addEventListener('click', ()=>{
     elem.innerHTML = '';
-    createFullTaskPane(task, elem, project);
+    createFullTaskPane(task, elem, parentInfo);
   });
 
   return innerItem;
 };
 
-const miniTaskContent = (task, elem, project) => {
+const miniTaskContent = (task, elem, parentInfo) => {
   const innerItem = document.createElement('div');
   innerItem.classList.add('mini-task');
   elem.append(innerItem);
@@ -135,7 +136,7 @@ const miniTaskContent = (task, elem, project) => {
   return innerItem;
 };
 
-const createFullTaskPane = (task, elem, project)=>{
+const createFullTaskPane = (task, elem, parentInfo)=>{
   const innerItem = document.createElement('div');
   innerItem.classList.add('full-task');
   elem.append(innerItem);
@@ -217,7 +218,7 @@ const createFullTaskPane = (task, elem, project)=>{
   edit.addEventListener('click', () =>{
     //copy the task
     const taskCopy = task.copy();
-    //todo: create the new page
+    loadTask(parentInfo.content, parentInfo.project, task, taskCopy);
   });
 
   //delete button
@@ -228,7 +229,7 @@ const createFullTaskPane = (task, elem, project)=>{
   delButton.addEventListener('click', () =>{
     //cannot refresh because no reference to the project here
     elem.remove();
-    project.deleteTask(task);
+    parentInfo.project.deleteTask(task);
     storeProjectList();
   });
 
@@ -241,7 +242,7 @@ const createFullTaskPane = (task, elem, project)=>{
     //cannot refresh because no reference to the project here
     task.resolved = true;
     elem.innerHTML = '';
-    createFullTaskPane(task, elem, project);
+    createFullTaskPane(task, elem, parentInfo);
     storeProjectList();
   });
 
