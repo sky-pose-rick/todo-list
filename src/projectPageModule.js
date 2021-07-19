@@ -32,7 +32,15 @@ const loadProject = (content, project) =>{
   projectNamer.innerText = 'Rename Project';
   projectNamer.classList.add('project-rename');
   topContainer.appendChild(projectNamer);
-  //todo: add event listener to rename project
+  
+  projectNamer.addEventListener('click', ()=>{
+    const input = prompt('New project name?');
+    if(input){
+      project.name = input;
+      h1.innerText = input;
+      storeProjectList();
+    }
+  });
 
 
   //create button
