@@ -92,7 +92,7 @@ const createMiniTaskPane = (task, elem, parentInfo)=>{
   return innerItem;
 };
 
-const miniTaskContent = (task, elem, parentInfo) => {
+const miniTaskContent = (task, elem) => {
   const innerItem = document.createElement('div');
   innerItem.classList.add('mini-task');
   elem.append(innerItem);
@@ -133,7 +133,7 @@ const createFullTaskPane = (task, elem, parentInfo)=>{
   mini.append(shrinker);
   shrinker.addEventListener('click', ()=>{
     elem.innerHTML = '';
-    createMiniTaskPane(task, elem);
+    createMiniTaskPane(task, elem, parentInfo);
   });
 
   //expanded details
@@ -202,6 +202,7 @@ const createFullTaskPane = (task, elem, parentInfo)=>{
   buttonRow.append(edit);
 
   edit.addEventListener('click', () =>{
+    console.log(parentInfo);
     loadTask(parentInfo.content, parentInfo.project, task);
   });
 
