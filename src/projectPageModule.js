@@ -106,7 +106,7 @@ const miniTaskContent = (task, elem) => {
   //due date
   const tDate = document.createElement('div');
   tDate.classList.add('mini-task-date');
-  tDate.innerText = task.dueDate;
+  tDate.innerText = task.getTimeUntilDueDate();
   innerItem.append(tDate);
 
   //set priority color
@@ -152,6 +152,12 @@ const createFullTaskPane = (task, elem, parentInfo)=>{
   notes.classList.add('full-task-text');
   notes.innerText = task.notes;
   details.append(notes);
+
+  //actual due date
+  const deadline = document.createElement('div');
+  deadline.classList.add('full-task-text');
+  deadline.innerText = task.getDateString();;
+  details.append(deadline);
 
   //priority
   const prio = document.createElement('div');

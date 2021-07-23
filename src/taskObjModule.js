@@ -1,5 +1,5 @@
 //constructor and helper functions for task/todo objects
-import {format} from 'date-fns';
+import {format, parse as dateParse, formatDistanceToNow, parseJSON as dateParseJSON} from 'date-fns';
 
 const taskFactory = ({title,
     desc,
@@ -36,12 +36,23 @@ const taskFactory = ({title,
         return newTask;
     }
 
-    return {title, desc, notes, dueDate, priority, checklist, resolved, copy};
+    //day day month year
+    const getDateString = () =>{
+        return format(dueDate, 'eeee d MMMM yyyy');
+    };
+
+    const getTimeUntilDueDate = () =>{
+        return formatDistanceToNow(dueDate);
+    };
+
+    return {title, desc, notes, dueDate, priority, checklist, resolved, copy, getDateString, getTimeUntilDueDate};
 }
 
 //convert a generic object to a task
 const taskFromObject = obj =>{
+    obj.dueDate = new Date(obj.dueDate);
     let task = taskFactory(obj);
+
     return task;
 }
 

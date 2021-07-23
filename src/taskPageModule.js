@@ -44,6 +44,8 @@ const loadTask = (content, project, task) =>{
 
     //date
     //todo: learn the date system
+    //todo: date selector and time selector along with parsing
+    
 
     //priority
     const optionMaker = (parent, str, value)=>{

@@ -8,7 +8,7 @@ const projectFactory = (name, taskList) =>{
             title: 'New Task', 
             desc: 'A blank task', 
             notes: 'blank notes', 
-            dueDate: 'set this somehow', 
+            dueDate: new Date(), 
             priority: 'none', 
             checklist: [['sample checkbox', false]], 
             resolved: false
