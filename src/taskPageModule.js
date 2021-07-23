@@ -23,16 +23,26 @@ const loadTask = (content, project, task, taskCopy) =>{
   h1.innerText = 'Edit Task';
   topContainer.appendChild(h1);
 
-  //todo: all task elements as inputs
-
   //container
   const container = document.createElement('div');
   container.setAttribute('id', 'task-container');
   content.append(container);
 
+  //todo: all task elements as inputs
+
   //title
-  const title = labelMaker(container, 'Title');
-  title.input.setAttribute('value',taskCopy.title);
+  const title = inputMaker(container, 'Title', 'input', textInputFactory);
+  title.setValue(taskCopy.title);
+
+  //desc
+
+  //notes
+
+  //date
+
+  //priority
+
+
 
   //save button
   const save = document.createElement('button');
@@ -40,8 +50,7 @@ const loadTask = (content, project, task, taskCopy) =>{
   content.append(save);
   save.addEventListener('click', ()=>{
     //todo: update the copy with all the values from the inputs
-    taskCopy.title = title.input.value;
-    console.log(taskCopy.title);
+    taskCopy.title = title.getValue();
 
     //replace the original task with the copy
     project.taskList = project.taskList.map((elem)=>{
@@ -57,7 +66,7 @@ const loadTask = (content, project, task, taskCopy) =>{
   });
 };
 
-const labelMaker = (elem, title) =>
+const inputMaker = (elem, title, elemType, factory) =>
 {
     const box = document.createElement('div');
     elem.append(box);
@@ -66,10 +75,40 @@ const labelMaker = (elem, title) =>
     label.innerText = title;
     box.append(label);
 
-    const input = document.createElement('input');
+    const input = document.createElement(elemType);
     box.append(input);
 
-    return {label, input};
+    const inputObj = factory(input, label);
+    console.log(inputObj);
+
+    return inputObj;
+}
+
+//factory to create an object to manage an input element
+//todo: learn factory abstracts/interfaces to make objects more uniform
+//also learn static variables for factories
+const textInputFactory = (elem, label) =>{
+    const setValue = (value) => {
+        elem.setAttribute('value',value);
+    };
+    const getValue = () => 
+    {
+        return elem.value;
+    };
+
+    return {elem, label, setValue, getValue};
+}
+
+const textAreaFactory = (elem, label) =>{
+  const setValue = (value) => {
+      elem.innerText = value;
+  };
+  const getValue = () => 
+  {
+      return elem.innerText;
+  };
+
+    return {elem, label, setValue, getValue};
 }
 
 export {loadTask};

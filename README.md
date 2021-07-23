@@ -1,2 +1,2 @@
 # todo-list
-project to practice single responsibility objects
+Project to practice single responsibility objects. This aspect was not implemented well.
