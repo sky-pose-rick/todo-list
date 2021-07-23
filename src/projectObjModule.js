@@ -10,7 +10,7 @@ const projectFactory = (name, taskList) =>{
             notes: 'blank notes', 
             dueDate: 'set this somehow', 
             priority: 'none', 
-            checkList: [['sample checkbox', false]], 
+            checklist: [['sample checkbox', false]], 
             resolved: false
         });
         taskList.push(newTask);

@@ -167,7 +167,7 @@ const createFullTaskPane = (task, elem, parentInfo)=>{
   cList.classList.add('full-task-list');
   details.append(cList);
 
-  task.checkList.forEach(c=>{
+  task.checklist.forEach(c=>{
     //outer container
     const check = document.createElement('li');
     check.classList.add('full-task-list-item');

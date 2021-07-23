@@ -6,7 +6,7 @@ const taskFactory = ({title,
     notes,
     dueDate,
     priority,
-    checkList,
+    checklist,
     resolved}) =>{
     /*const title = 'New Task';
     const desc = 'A default task template';
@@ -18,7 +18,7 @@ const taskFactory = ({title,
 
     const copy = () =>{
 
-        const cCopy = checkList.map((elem)=>
+        const cCopy = checklist.map((elem)=>
         {
             return [elem[0], elem[1]];
         })
@@ -29,14 +29,14 @@ const taskFactory = ({title,
             notes: notes,
             dueDate: 'bad for now',
             priority: priority,
-            checkList: cCopy,
+            checklist: cCopy,
             resolved: resolved,
         });
 
         return newTask;
     }
 
-    return {title, desc, notes, dueDate, priority, checkList, resolved, copy};
+    return {title, desc, notes, dueDate, priority, checklist, resolved, copy};
 }
 
 //convert a generic object to a task

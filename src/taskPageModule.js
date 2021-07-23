@@ -37,16 +37,30 @@ const loadTask = (content, project, task) =>{
     //desc
     const desc = inputMaker(container, 'Description', 'textarea', textAreaFactory);
     desc.setValue(task.desc);
-    console.log(desc.elem.value);
-    console.log(task.desc);
 
     //notes
+    const notes = inputMaker(container, 'Notes', 'textarea', textAreaFactory);
+    notes.setValue(task.notes);
 
     //date
+    //todo: learn the date system
 
     //priority
+    const optionMaker = (parent, str, value)=>{
+        const opt = document.createElement('option');
+        opt.innerText = str;
+        opt.setAttribute('value', value);
+        parent.append(opt);
+    };
+    const priority = inputMaker(container, 'Priority', 'select', selectFactory);
+    optionMaker(priority.elem, 'None', 'none');
+    optionMaker(priority.elem, 'Low', 'low');
+    optionMaker(priority.elem, 'Medium', 'medium');
+    optionMaker(priority.elem, 'High', 'high');
+    priority.setValue(task.priority);
 
-
+    //checklist
+    const checklist = createChecklist(container, task);
 
     //save button
     const save = document.createElement('button');
@@ -56,24 +70,59 @@ const loadTask = (content, project, task) =>{
         //todo: update the task with all the values from the inputs
         task.title = title.getValue();
         task.desc = desc.getValue();
+        task.notes = notes.getValue();
+        task.priority = priority.getValue();
 
-        //replace the original task with the copy
-        /*project.taskList = project.taskList.map((elem)=>{
-            if(elem === task){
-                console.log('task replaced');
-                return taskCopy;
-            }
-            else{
-                return elem;
-            }
+        task.checklist = [];
+        [... checklist.querySelectorAll('input')].forEach(elem=>{
+            const checked = elem.getAttribute('data-checked') === 'true';
+            task.checklist.push([elem.value, checked]);
+            console.log(checked);
         });
-
-        console.table(project);*/
 
         //save and go back
         storeProjectList();
         loadProject(content, project);
     });
+};
+
+const createChecklist = (parent, task)=>{
+    const cDiv = document.createElement('div');
+    parent.append(cDiv);
+    const cLabel = document.createElement('div');
+    cDiv.append(cLabel);
+    cLabel.innerText = 'Checklist';
+    const cButton = document.createElement('button');
+    cDiv.append(cButton);
+    cButton.innerText = 'Add to Checklist';
+    const checklist = document.createElement('ul');
+    cDiv.append(checklist);
+
+    cButton.addEventListener('click', ()=>{
+        checklist.append(createChecklistElem('New Todo', 0));
+    });
+
+    task.checklist.forEach(elem=>{
+        checklist.append(createChecklistElem(elem[0], elem[1]));        
+    });
+
+    return checklist;
+};
+
+const createChecklistElem = (name, checked)=>{
+    const li = document.createElement('li');
+    const text = document.createElement('input');
+    li.append(text);
+    text.setAttribute('value', name);
+    text.setAttribute('data-checked', checked);
+    const button = document.createElement('button');
+    li.append(button);
+    button.innerText = 'Remove';
+    button.addEventListener('click', ()=>{
+        li.remove();
+    })
+
+    return li;
 };
 
 const inputMaker = (elem, title, elemType, factory) =>
@@ -88,10 +137,7 @@ const inputMaker = (elem, title, elemType, factory) =>
     const input = document.createElement(elemType);
     box.append(input);
 
-    const inputObj = factory(input, label);
-    console.log(inputObj);
-
-    return inputObj;
+    return factory(input, label);
 }
 
 //factory to create an object to manage an input element
@@ -110,16 +156,31 @@ const textInputFactory = (elem, label) =>{
 }
 
 const textAreaFactory = (elem, label) =>{
-  const setValue = (value) => {
-    //elem.setAttribute('placeholder', value);
-      elem.innerText = value;
-  };
-  const getValue = () => 
-  {
-      return elem.value;
-  };
+    const setValue = (value) => {
+        elem.innerText = value;
+    };
+    const getValue = () => 
+    {
+        return elem.value;
+    };
 
     return {elem, label, setValue, getValue};
 }
+
+const selectFactory = (elem, label) =>{
+    const setValue = (value) => {
+        const selected = [... elem.children].find(c=>{
+            return c.value === value;
+        });
+
+        selected.toggleAttribute('selected');
+    };
+    const getValue = () => 
+    {
+        return elem.value;
+    };
+
+    return {elem, label, setValue, getValue};
+};
 
 export {loadTask};
