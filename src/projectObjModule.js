@@ -16,7 +16,7 @@ const projectFactory = (name, taskList) =>{
         taskList.push(newTask);
     }
 
-    //delete a project from the list
+    //delete a task from the list
     const deleteTask = (t) =>{
         for(let i = 0; i < taskList.length; i++)
         {

@@ -202,9 +202,7 @@ const createFullTaskPane = (task, elem, parentInfo)=>{
   buttonRow.append(edit);
 
   edit.addEventListener('click', () =>{
-    //copy the task
-    const taskCopy = task.copy();
-    loadTask(parentInfo.content, parentInfo.project, task, taskCopy);
+    loadTask(parentInfo.content, parentInfo.project, task);
   });
 
   //delete button

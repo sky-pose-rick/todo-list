@@ -1,69 +1,79 @@
 import { storeProjectList } from "./storageModule";
 import {loadProject} from "./projectPageModule.js";
 
-const loadTask = (content, project, task, taskCopy) =>{
+const loadTask = (content, project, task) =>{
     content.innerHTML = '';
 
-  //top element container
-  const topContainer = document.createElement('div');
-  topContainer.setAttribute('id', 'task-header');
-  content.append(topContainer);
+    //top element container
+    const topContainer = document.createElement('div');
+    topContainer.setAttribute('id', 'task-header');
+    content.append(topContainer);
 
-  //back button
-  const backer = document.createElement('button');
-  backer.innerText = 'Back to Project';
-  backer.classList.add('back-button');
-  topContainer.append(backer);
-  backer.addEventListener('click', () =>{
-    loadProject(content, project);
-  })
+    //back button
+    const backer = document.createElement('button');
+    backer.innerText = 'Back to Project';
+    backer.classList.add('back-button');
+    topContainer.append(backer);
+    backer.addEventListener('click', () =>{
+        loadProject(content, project);
+    })
 
-  //h1
-  const h1 = document.createElement('h1');
-  h1.innerText = 'Edit Task';
-  topContainer.appendChild(h1);
+    //h1
+    const h1 = document.createElement('h1');
+    h1.innerText = 'Edit Task';
+    topContainer.appendChild(h1);
 
-  //container
-  const container = document.createElement('div');
-  container.setAttribute('id', 'task-container');
-  content.append(container);
+    //container
+    const container = document.createElement('div');
+    container.setAttribute('id', 'task-container');
+    content.append(container);
 
-  //todo: all task elements as inputs
+    //todo: all task elements as inputs
 
-  //title
-  const title = inputMaker(container, 'Title', 'input', textInputFactory);
-  title.setValue(taskCopy.title);
+    //title
+    const title = inputMaker(container, 'Title', 'input', textInputFactory);
+    title.setValue(task.title);
 
-  //desc
+    //desc
+    const desc = inputMaker(container, 'Description', 'textarea', textAreaFactory);
+    desc.setValue(task.desc);
+    console.log(desc.elem.value);
+    console.log(task.desc);
 
-  //notes
+    //notes
 
-  //date
+    //date
 
-  //priority
+    //priority
 
 
 
-  //save button
-  const save = document.createElement('button');
-  save.innerText = 'Save Task';
-  content.append(save);
-  save.addEventListener('click', ()=>{
-    //todo: update the copy with all the values from the inputs
-    taskCopy.title = title.getValue();
+    //save button
+    const save = document.createElement('button');
+    save.innerText = 'Save Task';
+    content.append(save);
+    save.addEventListener('click', ()=>{
+        //todo: update the task with all the values from the inputs
+        task.title = title.getValue();
+        task.desc = desc.getValue();
 
-    //replace the original task with the copy
-    project.taskList = project.taskList.map((elem)=>{
-        if(elem === task)
-            return taskCopy;
-        else
-            return elem;
+        //replace the original task with the copy
+        /*project.taskList = project.taskList.map((elem)=>{
+            if(elem === task){
+                console.log('task replaced');
+                return taskCopy;
+            }
+            else{
+                return elem;
+            }
+        });
+
+        console.table(project);*/
+
+        //save and go back
+        storeProjectList();
+        loadProject(content, project);
     });
-
-    //save and go back
-    storeProjectList();
-    loadProject(content, project);
-  });
 };
 
 const inputMaker = (elem, title, elemType, factory) =>
@@ -101,11 +111,12 @@ const textInputFactory = (elem, label) =>{
 
 const textAreaFactory = (elem, label) =>{
   const setValue = (value) => {
+    //elem.setAttribute('placeholder', value);
       elem.innerText = value;
   };
   const getValue = () => 
   {
-      return elem.innerText;
+      return elem.value;
   };
 
     return {elem, label, setValue, getValue};
