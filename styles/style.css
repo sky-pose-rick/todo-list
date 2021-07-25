@@ -1,9 +1,12 @@
+#header-bar {
+    background-color: #c3c3e8;
+    border-bottom: solid 3px black;
+}
+
 h1 {
     font-size: 70px;
     text-align: center;
     padding: 20px;
-    background-color: #c3c3e8;
-    border-bottom: solid 3px black;
 }
 
 .create-button{
