@@ -8,10 +8,16 @@ import { loadTask } from "./taskPageModule";
 const loadProject = (content, project) =>{
   content.innerHTML = '';
 
+
+  //header bar
+  const bar = document.createElement('div');
+  bar.setAttribute('id', 'header-bar');
+  content.append(bar);
+
   //top element container
   const topContainer = document.createElement('div');
   topContainer.setAttribute('id', 'project-info');
-  content.appendChild(topContainer);
+  bar.appendChild(topContainer);
 
   //back button
   const backer = document.createElement('button');

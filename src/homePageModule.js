@@ -7,10 +7,15 @@ import { loadProject } from "./projectPageModule";
 const loadHome = content =>{
     content.innerHTML = '';
 
+    //header bar
+    const bar = document.createElement('div');
+    bar.setAttribute('id', 'header-bar');
+    content.append(bar);
+
     //h1
     const h1 = document.createElement('h1');
     h1.innerText = 'TODO Lists';
-    content.appendChild(h1);
+    bar.appendChild(h1);
 
     //button
     const creater = document.createElement('button');

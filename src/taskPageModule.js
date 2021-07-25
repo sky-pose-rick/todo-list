@@ -5,10 +5,15 @@ import * as dateFns from 'date-fns' ;
 const loadTask = (content, project, task) =>{
     content.innerHTML = '';
 
+    //header bar
+    const bar = document.createElement('div');
+    bar.setAttribute('id', 'header-bar');
+    content.append(bar);
+
     //top element container
     const topContainer = document.createElement('div');
     topContainer.setAttribute('id', 'task-header');
-    content.append(topContainer);
+    bar.append(topContainer);
 
     //back button
     const backer = document.createElement('button');
