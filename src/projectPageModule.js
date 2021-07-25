@@ -22,7 +22,7 @@ const loadProject = (content, project) =>{
   //back button
   const backer = document.createElement('button');
   backer.innerText = 'Back to Home';
-  backer.classList.add('back-button');
+  backer.setAttribute('id', 'back-button');
   topContainer.appendChild(backer);
   backer.addEventListener('click', () =>{
     loadHome(content);
@@ -36,7 +36,7 @@ const loadProject = (content, project) =>{
   //rename button
   const projectNamer = document.createElement('button');
   projectNamer.innerText = 'Rename Project';
-  projectNamer.classList.add('project-rename');
+  projectNamer.setAttribute('id','project-rename');
   topContainer.appendChild(projectNamer);
   
   projectNamer.addEventListener('click', ()=>{
@@ -112,7 +112,7 @@ const miniTaskContent = (task, elem) => {
   //due date
   const tDate = document.createElement('div');
   tDate.classList.add('mini-task-date');
-  tDate.innerText = task.getTimeUntilDueDate();
+  tDate.innerText = 'Due: '+task.getTimeUntilDueDate();
   innerItem.append(tDate);
 
   //set priority color
@@ -145,34 +145,40 @@ const createFullTaskPane = (task, elem, parentInfo)=>{
   //expanded details
   const details = document.createElement('div');
   details.classList.add('full-task-details');
-  elem.append(details);
+  innerItem.append(details);
 
   //description
-  const desc = document.createElement('div');
+  const desc = document.createElement('p');
   desc.classList.add('full-task-text');
-  desc.innerText = task.desc;
+  desc.innerText = 'Description: ' + task.desc;
   details.append(desc);
 
   //notes
-  const notes = document.createElement('div');
+  const notes = document.createElement('p');
   notes.classList.add('full-task-text');
-  notes.innerText = task.notes;
+  notes.innerText = 'Additional Notes: ' +task.notes;
   details.append(notes);
 
   //actual due date
-  const deadline = document.createElement('div');
+  const deadline = document.createElement('p');
   deadline.classList.add('full-task-text');
-  deadline.innerText = task.getDateString();;
+  deadline.innerText = 'Deadline: ' +task.getDateString();;
   details.append(deadline);
 
   //priority
-  const prio = document.createElement('div');
+  const prio = document.createElement('p');
   prio.classList.add('full-task-text');
   if(task.resolved)
     prio.innerText = `Priority: none (resolved)`;
   else
     prio.innerText = `Priority: ${task.priority}`;
   details.append(prio);
+
+  //checklist label
+  const cListTitle = document.createElement('p');
+  cListTitle.classList.add('full-task-text', 'full-task-todo-label');
+  cListTitle.innerText = 'TODOs';
+  details.append(cListTitle);
 
   //checklist
   const cList = document.createElement('ul');

@@ -1,3 +1,5 @@
+/*shared elements*/
+
 #header-bar {
     background-color: #c3c3e8;
     border-bottom: solid 3px black;
@@ -16,6 +18,8 @@ h1 {
     display: block;
     padding: 10px;
 }
+
+/*home page*/
 
 #project-list {
     display: grid;
@@ -66,13 +70,29 @@ h1 {
 	margin-right: 50px;
 }
 
+/*project page*/
+
+#back-button, #project-rename {
+	height: max-content;
+	align-self: center;
+	margin: 20px;
+	padding: 5px;
+}
+
+#task-list{
+    width: 60%;
+    margin: 0 auto 0 auto;
+}
+
 .mini-task {
 	display: flex;
-	width: 60%;
 	justify-content: space-between;
-	margin: 5px auto 5px auto;
     border: solid 1px black;
     padding: 5px;
+}
+
+.mini-task-title, .mini-task-date, .mini-task-expand {
+    align-self: center;
 }
 
 .no-priority {
@@ -96,15 +116,31 @@ h1 {
     justify-content: space-between;
 }
 
+.full-task{
+    background-color: rgb(189, 189, 189);
+}
+
 .full-task-details{
-    width: 60%;
-    margin: 5px auto 5px auto;
     border: solid 1px black;
     border-top: none;
     padding: 5px;
-    background-color: rgb(189, 189, 189);
 }
 
 .full-task-list-item{
     display: flex;
+    padding: 5px;
 }
+
+.full-task-list-item p{
+    align-self: center;
+}
+
+.full-task-text {
+	padding: 5px;
+}
+
+.full-task-todo-label {
+	text-decoration: underline;
+}
+
+/*task page*/
