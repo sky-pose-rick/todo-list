@@ -208,7 +208,6 @@ const createFullTaskPane = (task, elem, parentInfo)=>{
   buttonRow.append(edit);
 
   edit.addEventListener('click', () =>{
-    console.log(parentInfo);
     loadTask(parentInfo.content, parentInfo.project, task);
   });
 

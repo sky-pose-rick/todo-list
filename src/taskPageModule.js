@@ -1,5 +1,6 @@
 import { storeProjectList } from "./storageModule";
 import {loadProject} from "./projectPageModule.js";
+import * as dateFns from 'date-fns' ;
 
 const loadTask = (content, project, task) =>{
     content.innerHTML = '';
@@ -45,7 +46,9 @@ const loadTask = (content, project, task) =>{
     //date
     //todo: learn the date system
     //todo: date selector and time selector along with parsing
-    
+    const calendar = inputMaker(container, 'Deadline', 'input', textInputFactory);
+    calendar.elem.setAttribute('type', 'date');
+    calendar.setValue(task.getDateString('yyyy-MM-dd'));
 
     //priority
     const optionMaker = (parent, str, value)=>{
@@ -74,12 +77,13 @@ const loadTask = (content, project, task) =>{
         task.desc = desc.getValue();
         task.notes = notes.getValue();
         task.priority = priority.getValue();
+        if(calendar.getValue());
+            task.dueDate = dateFns.parse(calendar.getValue(),'yyyy-MM-dd', new Date(2020, 1, 1, 1, 1, 1));
 
         task.checklist = [];
         [... checklist.querySelectorAll('input')].forEach(elem=>{
             const checked = elem.getAttribute('data-checked') === 'true';
             task.checklist.push([elem.value, checked]);
-            console.log(checked);
         });
 
         //save and go back

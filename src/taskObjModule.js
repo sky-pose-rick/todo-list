@@ -1,5 +1,5 @@
 //constructor and helper functions for task/todo objects
-import {format, parse as dateParse, formatDistanceToNow, parseJSON as dateParseJSON} from 'date-fns';
+import * as dateFns from 'date-fns' ;
 
 const taskFactory = ({title,
     desc,
@@ -18,34 +18,41 @@ const taskFactory = ({title,
 
     const copy = () =>{
 
-        const cCopy = checklist.map((elem)=>
+        const cCopy = obj.checklist.map((elem)=>
         {
             return [elem[0], elem[1]];
         })
 
         const newTask = taskFactory({
-            title: title,
-            desc: desc,
-            notes: notes,
-            dueDate: 'bad for now',
-            priority: priority,
+            title: obj.title,
+            desc: obj.desc,
+            notes: obj.notes,
+            dueDate: obj.dueDate,
+            priority: obj.priority,
             checklist: cCopy,
-            resolved: resolved,
+            resolved: obj.resolved,
         });
 
         return newTask;
     }
 
     //day day month year
-    const getDateString = () =>{
-        return format(dueDate, 'eeee d MMMM yyyy');
+    const getDateString = (format = 'eeee d MMMM yyyy') =>{
+        if(dateFns.isDate(obj.dueDate))
+            return dateFns.format(obj.dueDate, format);
+        else
+            return "Invalid Deadline";
     };
 
     const getTimeUntilDueDate = () =>{
-        return formatDistanceToNow(dueDate, {addSuffix: true});
+        if(dateFns.isDate(obj.dueDate))
+            return dateFns.formatDistanceToNow(obj.dueDate, {addSuffix: true});
+        else
+            return "Invalid Deadline";
     };
 
-    return {title, desc, notes, dueDate, priority, checklist, resolved, copy, getDateString, getTimeUntilDueDate};
+    const obj = {title, desc, notes, dueDate, priority, checklist, resolved, copy, getDateString, getTimeUntilDueDate};
+    return obj;
 }
 
 //convert a generic object to a task
