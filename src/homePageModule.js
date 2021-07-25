@@ -68,17 +68,21 @@ const loadHome = content =>{
       });
 
       //append to list
-      uList.appendChild(item);
+      uList.append(item);
     });
 
     //append list to content
-    content.appendChild(uList);
+    content.append(uList);
+
+    //container for reset
+    const rDiv = document.createElement('div');
+    content.append(rDiv);
+    rDiv.setAttribute('id', 'home-reset');
 
     //a reset button
     const reseter = document.createElement('button')
-    reseter.classList.add('home-reset');
     reseter.innerText = 'Reset all';
-    content.append(reseter);
+    rDiv.append(reseter);
     reseter.addEventListener('click', ()=>{
       resetStorage();
       createNewProject();
