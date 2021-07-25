@@ -42,7 +42,7 @@ const taskFactory = ({title,
     };
 
     const getTimeUntilDueDate = () =>{
-        return formatDistanceToNow(dueDate);
+        return formatDistanceToNow(dueDate, {addSuffix: true});
     };
 
     return {title, desc, notes, dueDate, priority, checklist, resolved, copy, getDateString, getTimeUntilDueDate};
