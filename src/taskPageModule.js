@@ -18,7 +18,7 @@ const loadTask = (content, project, task) =>{
     //back button
     const backer = document.createElement('button');
     backer.innerText = 'Back to Project';
-    backer.classList.add('back-button');
+    backer.setAttribute('id','back-button');
     topContainer.append(backer);
     backer.addEventListener('click', () =>{
         loadProject(content, project);
